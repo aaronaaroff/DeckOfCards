@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var deck = Deck()
+    @State private var showSettings = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            TableView(deck: deck)
+            
+            if showSettings {
+                SettingsView(isVisible: $showSettings)
+            } else {
+                HiddenSettingsButton(showSettings: $showSettings)
+            }
         }
-        .padding()
     }
 }
 
